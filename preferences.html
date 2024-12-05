@@ -69,7 +69,7 @@
             return null;
         }
         $(document).ready(function() {
-            $.getJSON('/themes/list.json', function(data) {
+            $.getJSON('themes/list.json', function(data) {
                 let list = '<ul class="list-group">';
                 data.forEach(function(theme) {
                     list += `<li class="list-group-item"><button class="btn btn-link theme-item" data-theme="${theme}" style="cursor: pointer;">${theme}</button></li>`;
