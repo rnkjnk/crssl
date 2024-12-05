@@ -95,6 +95,7 @@
                         });
                     });
                 } catch (error) {
+                    const feedContainer = document.getElementById('feed-container');
                     feedContainer.innerHTML = `
                     <div class="col-md-12">
                         <div class="alert alert-info" role="alert">
@@ -102,6 +103,7 @@
                         </div>
                     </div>
                 `;
+                return null;
                 }
             }
 
@@ -119,6 +121,10 @@
                 `;
 
             const posts = await fetchRSSFeeds(rssFeeds);
+
+            if (posts == null) {
+                return;
+            }
 
             if (posts.length === 0) {
                 feedContainer.innerHTML = `
