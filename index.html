@@ -28,24 +28,20 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="index.html">cRSSl</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link mx-2" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="feeds.html">Feeds</a>
+                    <a class="nav-link mx-2" href="feeds.html">Feeds</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="preferences.html">Preferences</a>
+                    <a class="nav-link mx-2" href="preferences.html">Preferences</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="privacy.html">Privacy Policy</a>
+                    <a class="nav-link mx-2" href="privacy.html">Privacy Policy</a>
                 </li>
             </ul>
         </div>
@@ -158,6 +154,25 @@
         }
 
         displayRSSFeeds();
+    </script>
+    <div id="cookie-consent" class="alert alert-info hidden" style="display: none; margin-bottom: 0px; position: fixed; bottom: 0; width: 100%; text-align: center; z-index: 1000;">
+        We use cookies. 
+        <a href="privacy.html"><button id="privacy-policy" class="btn btn-info">Privacy Policy</button></a>
+        <button id="accept-cookies" class="btn btn-success">Accept</button>
+    </div>
+    <script>
+        window.onload = function() {
+            const cookiesAccepted = document.cookie.split(';').some(cookie => cookie.trim().startsWith('cookies_accepted=true'));
+            if (!cookiesAccepted) {
+                $('#cookie-consent').show();
+            }
+        };
+    </script>
+    <script>
+    document.getElementById('accept-cookies').onclick = function() {
+        document.cookie = "cookies_accepted=true; path=/; max-age=31536000"; // Expires in 1 year
+        document.getElementById('cookie-consent').style.display = 'none';
+    };
     </script>
 </body>
 </html>
