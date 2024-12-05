@@ -27,6 +27,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/qrcode.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -55,7 +56,26 @@
         <h1 class="mb-4">Themes</h1>
     </div>
     <div class="container mt-5">
-        <button class="btn btn-secondary" onclick="window.location.href='index.html';">Back</button>
+        <div id="permalink-container"></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            const feedsList = getCookie('rssFeeds');
+            if (feedsList) {
+                const base64FeedsList = btoa(feedsList);
+                const permalinkURL = `${window.location.origin}/permalink.html?feeds=${base64FeedsList}`;
+                const permalink = `<a href="${permalinkURL}"><p>Use this permalink to save your RSS feed choices.</p>
+                    <div id="qrcode"></div></a>`;
+                $('#permalink-container').html(permalink);
+                var qrcode = new QRCode("qrcode");
+                qrcode.makeCode(permalinkURL);
+            } else {
+                $('#permalink-container').html('');
+            }
+        });
+    </script>
+    <div class="container mt-5">
+        <button class="btn btn-secondary" onclick="window.location.href='index.html';">Home</button>
     </div>
     <script>
         // Function to get cookie by name
