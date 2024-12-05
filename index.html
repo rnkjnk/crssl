@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feed Reader</title>
+    <script>
+        function getThemeFromCookie() {
+            const name = 'theme=';
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) === 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return 'default';
+        }
+
+        const theme = getThemeFromCookie();
+        document.write(`<link href="/themes/${theme}/css/bootstrap.min.css" rel="stylesheet">`);
+        document.write(`<link href="/css/style.css" rel="stylesheet">`);
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">cRSSl</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="feeds.html">Feeds</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="preferences.html">Preferences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="privacy.html">Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <div id="feed-container" class="row"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/rss-parser/dist/rss-parser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function getRSSFeedsFromCookie() {
+            const name = 'rssFeeds=';
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return JSON.parse(c.substring(name.length, c.length));
+            }
+            }
+            return [];
+        }
+
+        const rssFeeds = getRSSFeedsFromCookie();
+
+        async function fetchRSSFeeds(feedUrls) {
+            const parser = new RSSParser();
+            const posts = [];
+
+            for (const url of feedUrls) {
+                try {
+                    const corsProxy = 'https://rssproxy.rnkjnk.workers.dev/';
+                    const feed = await parser.parseURL(corsProxy + '?url=' + url);
+                    feed.items.forEach(item => {
+                        posts.push({
+                            title: item.title,
+                            content: item.content ? item.content : null,
+                            link: item.link,
+                            pubDate: new Date(Date.parse(item.pubDate) || Date.now()),
+                            source: feed.title
+                        });
+                    });
+                } catch (error) {
+                    console.error(`Failed to fetch feed from ${url}:`, error);
+                }
+            }
+
+            return posts.sort((a, b) => b.pubDate - a.pubDate);
+        }
+
+        async function displayRSSFeeds() {
+            const feedContainer = document.getElementById('feed-container');
+            feedContainer.innerHTML = `
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            Loading...
+                        </div>
+                    </div>
+                `;
+
+            const posts = await fetchRSSFeeds(rssFeeds);
+
+            if (posts.length === 0) {
+                feedContainer.innerHTML = `
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            Nothing to display. Set up <a href="/feeds.html">feeds to follow</a> first!
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            feedContainer.innerHTML = '';
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'col-md-8 mb-4';
+                postElement.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">${post.source}</h6>
+                            <h5 class="card-title"><a href="${post.link}" target="_blank">${post.title}</a></h5>
+                            ${post.content ? `<p class="card-text">${post.content}</p>` : ''}
+                            <p class="card-text"><small class="text-muted">${post.pubDate.toLocaleString()}</small></p>
+                        </div>
+                    </div>
+                `;
+                feedContainer.appendChild(postElement);
+            });
+        }
+
+        displayRSSFeeds();
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feeds</title>
+    <script>
+        function getThemeFromCookie() {
+            const name = 'theme=';
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) === 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return 'default';
+        }
+
+        const theme = getThemeFromCookie();
+        document.write(`<link href="/themes/${theme}/css/bootstrap.min.css" rel="stylesheet">`);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">cRSSl</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="feeds.html">Feeds</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="preferences.html">Preferences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="privacy.html">Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="mb-4">Privacy Policy</h1>
+
+        <p>At cRSSl, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by cRSSl and how we use it.</p>
+        
+        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOQ7Mza4hr6Ft6aXJrf5HpPAMvJiyfbfiRtdm_xrPt2mqNqQ/viewform?usp=header">contact us</a>.</p>
+        
+        <h5>General Data Protection Regulation (GDPR)</h5>
+        <p>We are a Data Controller of your information.</p>
+        
+        <p>cRSSl legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Information we collect and the specific context in which we collect the information:</p>
+        <ul>
+            <li>cRSSl needs to perform a contract with you</li>
+            <li>You have given cRSSl permission to do so</li>
+            <li>Processing your personal information is in cRSSl legitimate interests</li>
+            <li>cRSSl needs to comply with the law</li>
+        </ul>
+          
+        <p>cRSSl will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+        
+        <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. If you wish to be informed what Personal Information we hold about you and if you want it to be removed from our systems, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOQ7Mza4hr6Ft6aXJrf5HpPAMvJiyfbfiRtdm_xrPt2mqNqQ/viewform?usp=header">please contact us</a>.</p>
+        <p>In certain circumstances, you have the following data protection rights:</p>
+        <ul>
+            <li>The right to access, update or to delete the information we have on you.</li>
+            <li>The right of rectification.</li> 
+            <li>The right to object.</li>
+            <li>The right of restriction.</li>
+            <li>The right to data portability</li>
+            <li>The right to withdraw consent</li>
+        </ul>
+        
+        <h5>Log Files</h5>
+        
+        <p>cRSSl follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.</p>
+        
+        <h5>Cookies and Web Beacons</h5>
+        
+        <p>Like any other website, cRSSl uses "cookies". These cookies are used to store only information necessary for the website's smooth performance, and for collecting anonymized data about website traffic. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+        
+        <h5>Third Party Privacy Policies</h5>
+        
+        <p>cRSSl's Privacy Policy does not apply to Third Parties, such as RSS feeds you might add as sources . Thus, we are advising you to consult the respective Privacy Policies of these third-party servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options. </p>
+        
+        <p>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites.</p>
+        
+        <h5>Children's Information</h5>
+        
+        <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
+        
+        <p>cRSSl does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOQ7Mza4hr6Ft6aXJrf5HpPAMvJiyfbfiRtdm_xrPt2mqNqQ/viewform?usp=header">contact us</a> immediately and we will do our best efforts to promptly remove such information from our records.</p>
+        
+        <h5>Online Privacy Policy Only</h5>
+        
+        <p>Our Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in cRSSl. This policy is not applicable to any information collected offline or via channels other than this website.</p>
+        
+        <h5>Consent</h5>
+        
+        <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+        
+    </div>
+</body>
+</html>
