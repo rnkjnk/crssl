@@ -63,7 +63,7 @@
             const feedsList = getCookie('rssFeeds');
             if (feedsList) {
                 const base64FeedsList = btoa(feedsList);
-                const permalinkURL = `${window.location.origin}/permalink.html?feeds=${base64FeedsList}`;
+                const permalinkURL = `${window.location.origin}${window.location.pathname.replace(/\/[^\/]*$/, '')}/permalink.html?feeds=${base64FeedsList}`;
                 const permalink = `<a href="${permalinkURL}"><p>Use this permalink to save your RSS feed choices.</p>
                     <div id="qrcode"></div></a>`;
                 $('#permalink-container').html(permalink);
