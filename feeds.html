@@ -138,6 +138,9 @@
                     $('#addFeedModal').modal('hide');
                 }
             });
+            $('#addFeedModal').on('shown.bs.modal', function () {
+                $('#feedUrl').val('');
+            });
         </script>
     </div>
 </body>
