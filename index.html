@@ -95,7 +95,13 @@
                         });
                     });
                 } catch (error) {
-                    console.error(`Failed to fetch feed from ${url}:`, error);
+                    feedContainer.innerHTML = `
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            Error showing feed. ${error}
+                        </div>
+                    </div>
+                `;
                 }
             }
 
